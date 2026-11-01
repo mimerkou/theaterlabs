@@ -166,7 +166,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
   transform:perspective(400px) rotateX(55deg);transform-origin:bottom}
 .hero-inner{position:relative;z-index:3;width:min(1240px,100% - 2*(var(--dw) + 20px));margin-inline:auto;padding:150px 0 110px}
 .hero-inner > *{max-width:980px}
-.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:12.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:12.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600}.eyebrow .dot{font-style:normal;letter-spacing:0;color:var(--gold-l);font-size:1.15em;line-height:1}@media (max-width:600px){.prologue .eyebrow{white-space:nowrap;gap:9px;letter-spacing:.2em;font-size:11.5px}}
 .eyebrow::before{content:"";width:34px;height:1px;background:currentColor}
 .hero h1{font-family:var(--serif);font-weight:800;font-size:clamp(40px,6.2vw,96px);line-height:.98;letter-spacing:-.02em;margin:22px 0 26px}
 .hero h1 .line{display:block;overflow:hidden;padding-bottom:.08em}
@@ -283,6 +283,19 @@ section{position:relative}
 .tl-body li{font-size:13.5px;padding:7px 13px;border-radius:99px;border:1px solid rgba(232,184,74,.4);color:var(--gold-l);transition:background-color .5s var(--hs),color .5s var(--hs),transform .5s var(--hs)}
 .tl-body li:hover{background:var(--gold);color:var(--ink);transform:translateY(-3px)}
 .tl-swap{animation:swap .7s var(--ease)}
+.tl-step{cursor:pointer}
+.tl-steps{margin-bottom:22px}
+.tl-hint{display:flex;justify-content:center;margin-bottom:28px;transition:opacity .7s var(--hs),transform .7s var(--hs),max-height .7s var(--hs),margin .7s var(--hs);max-height:60px}
+.tl-hint span{display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.06em;color:var(--gold-l);padding:9px 18px 9px 12px;border-radius:99px;border:1px solid rgba(232,184,74,.35);background:rgba(0,0,0,.25);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.tl-hint svg{width:20px;height:20px;flex:none;animation:tapHand 1.8s var(--ease) infinite;transform-origin:50% 80%}
+.tl-hint .m{display:none}
+@keyframes tapHand{0%,100%{transform:translateY(0) scale(1)}35%{transform:translateY(-3px) scale(1.04)}55%{transform:translateY(1px) scale(.92)}}
+.tl-hint.gone{opacity:0;transform:translateY(-8px);max-height:0;margin-bottom:0;pointer-events:none}
+.tl-step .dot::after{content:"";position:absolute;inset:-1px;border-radius:50%;border:1.5px solid var(--gold);opacity:0;pointer-events:none}
+.tl-step.next .dot::after{animation:tlPing 1.8s cubic-bezier(.2,.7,.3,1) infinite}
+@keyframes tlPing{0%{transform:scale(1);opacity:.85}100%{transform:scale(1.55);opacity:0}}
+@media (hover:none),(max-width:860px){.tl-hint .d{display:none}.tl-hint .m{display:inline}}
+
 @keyframes swap{from{opacity:0;transform:translateY(14px)}}
 
 /* ============ SCHOOLS ============ */
@@ -544,7 +557,7 @@ footer .about{max-width:300px;font-size:14.5px}
 @keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.3)}30%{transform:scale(1)}45%{transform:scale(1.2)}}
 @media (max-width:700px){.fbottom{flex-direction:column;gap:18px}.fb-r{text-align:left}}
 /* ===== back to top ===== */
-.totop{position:fixed;right:22px;bottom:22px;z-index:75;width:54px;height:54px;border-radius:50%;background:var(--ink);color:var(--gold-l);display:grid;place-items:center;box-shadow:0 14px 30px -12px rgba(0,0,0,.6);
+.totop{position:fixed;right:22px;bottom:calc(22px + var(--lift,0px));z-index:75;width:54px;height:54px;border-radius:50%;background:var(--ink);color:var(--gold-l);display:grid;place-items:center;box-shadow:0 14px 30px -12px rgba(0,0,0,.6);
   opacity:0;transform:translateY(20px) scale(.8);pointer-events:none;transition:opacity .5s var(--hs),transform .6s var(--hs),background-color .5s var(--hs),color .5s var(--hs)}
 .totop.show{opacity:1;transform:none;pointer-events:auto}
 .totop svg.ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
@@ -555,7 +568,7 @@ footer .about{max-width:300px;font-size:14.5px}
 .totop:hover{background:var(--gold);color:var(--ink);transform:translateY(-4px)}
 .totop:hover .fg{stroke:var(--ink)}
 .totop:hover .ar{transform:translateY(-4px)}
-@media (max-width:600px){.totop{right:14px;bottom:14px;width:48px;height:48px}}
+@media (max-width:600px){.totop{right:14px;bottom:calc(14px + var(--lift,0px));width:48px;height:48px}}
 .prologue{display:grid;gap:8px}
 .eyebrow-sub{font-family:var(--serif);font-style:italic;font-size:clamp(17px,1.6vw,21px);color:#e9dcd3;padding-left:46px}
 @media (max-width:600px){.eyebrow-sub{padding-left:0}}
@@ -611,7 +624,7 @@ footer .about{max-width:300px;font-size:14.5px}
   <div class="drape l" aria-hidden="true"><canvas data-drape="1"></canvas></div>
   <div class="drape r" aria-hidden="true"><canvas data-drape="2"></canvas></div>
   <div class="hero-inner">
-    <div class="prologue fade"><span class="eyebrow">Πρόλογος Theater Labs</span><span class="eyebrow-sub">Ερασιτεχνικό θέατρο σε Αθήνα &amp; Πειραιά</span></div>
+    <div class="prologue fade"><span class="eyebrow">Πρόλογος <i class="dot" aria-hidden="true">•</i> Theater Labs</span><span class="eyebrow-sub">Ερασιτεχνικό θέατρο σε Αθήνα &amp; Πειραιά</span></div>
     <h1>
       <span class="line"><span>Το θέατρο δεν είναι για λίγους.</span></span>
       <span class="line"><span><em>Είναι για όλους.</em></span></span>
@@ -699,6 +712,7 @@ footer .about{max-width:300px;font-size:14.5px}
       <button class="tl-step" role="tab" aria-selected="false" data-i="2"><span class="dot">III</span><strong>Πρόβες</strong><small>Άνοιξη</small></button>
       <button class="tl-step" role="tab" aria-selected="false" data-i="3"><span class="dot">IV</span><strong>Πρεμιέρα</strong><small>Καλοκαίρι</small></button>
     </div>
+    <div class="tl-hint" id="tlHint" data-reveal="3"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10"/><path d="M12 9.5a1.5 1.5 0 0 1 3 0V11"/><path d="M15 10.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-.6a5 5 0 0 1-4-2l-2.9-3.9a1.4 1.4 0 0 1 2.1-1.9L9 15"/><path d="M5 4.5 3.8 3.3M8.5 2.5V1M12 3.3l1-1"/></svg><b class="d" style="font-weight:500">Κάνε κλικ σε κάθε στάδιο</b><b class="m" style="font-weight:500">Πάτησε σε κάθε στάδιο</b></span></div>
     <div class="tl-panel" data-reveal="3" role="tabpanel">
       <div class="tl-num" id="tlNum">I</div>
       <div class="tl-body" id="tlBody"></div>
@@ -1094,19 +1108,21 @@ footer .about{max-width:300px;font-size:14.5px}
   function setStep(i){cur=i;tl.forEach((s,k)=>{s.classList.toggle('on',k<=i);s.setAttribute('aria-selected',k===i)});$('#tlProg').style.width=(i/3*75)+'%';
     const n=$('#tlNum'),b=$('#tlBody');n.textContent=roman[i];b.innerHTML=`<h3>${steps[i].t}</h3><p>${steps[i].p}</p><ul>${steps[i].l.map(x=>`<li>${x}</li>`).join('')}</ul>`;
     [n,b].forEach(el=>{el.classList.remove('tl-swap');void el.offsetWidth;el.classList.add('tl-swap')})}
-  // auto-advance: starts as soon as the section is reached, pauses only when the section leaves the screen, stops after a manual click
-  const DUR=6000, timer=$('#tlTimer');let manual=false,started=false,visible=false,elapsed=0,last=0;
-  function tick(t){const dt=last?t-last:0;last=t;if(visible&&!manual){elapsed+=dt;if(elapsed>=DUR){elapsed=0;setStep((cur+1)%4)}timer.style.transform=`scaleX(${elapsed/DUR})`}requestAnimationFrame(tick)}
-  tl.forEach(s=>s.addEventListener('click',()=>{manual=true;timer.style.transform='scaleX(0)';setStep(+s.dataset.i)}));
-  setStep(0);
-  new IntersectionObserver(es=>es.forEach(e=>{visible=e.isIntersecting;if(visible&&!started){started=true;elapsed=0;last=0;setStep(0);requestAnimationFrame(tick)}}),{rootMargin:'0px 0px -30% 0px',threshold:0}).observe($('#xronia'));
+  // auto-advance: always starts from I, only once the steps are fully on screen; resets to I when the section leaves; stops for good after a click
+  const DUR=6000, timer=$('#tlTimer'), stepsEl=$('.tl-steps'), panelEl=$('.tl-panel'), hint=$('#tlHint');let manual=false,inSec=false,elapsed=0,last=0;
+  function markNext(){tl.forEach((s,k)=>s.classList.toggle('next',!manual&&k===(cur+1)%4))}
+  function ready(){if(!inSec)return false;const r=stepsEl.getBoundingClientRect(),p=panelEl.getBoundingClientRect(),top=hdr?hdr.getBoundingClientRect().bottom:0;return r.top>=top&&r.bottom<=innerHeight&&p.top<innerHeight*.85}
+  function tick(t){const dt=last?Math.min(t-last,100):0;last=t;if(!manual&&ready()){elapsed+=dt;if(elapsed>=DUR){elapsed=0;setStep((cur+1)%4);markNext()}timer.style.transform=`scaleX(${elapsed/DUR})`}requestAnimationFrame(tick)}
+  tl.forEach(s=>s.addEventListener('click',()=>{manual=true;timer.style.transform='scaleX(0)';setStep(+s.dataset.i);markNext();hint.classList.add('gone')}));
+  setStep(0);markNext();requestAnimationFrame(tick);
+  new IntersectionObserver(es=>es.forEach(e=>{inSec=e.isIntersecting;if(!inSec&&!manual){elapsed=0;timer.style.transform='scaleX(0)';if(cur!==0){setStep(0);markNext()}}}),{threshold:0}).observe($('#xronia'));
 
   /* ================= REVEAL + COUNTERS ================= */
 
   /* back to top */
   (function(){const b=$('#totop'),fg=$('#totopFg');if(!b)return;const C=2*Math.PI*25;fg.style.strokeDasharray=C;
-    function on(){const d=document.documentElement,p=scrollY/Math.max(1,d.scrollHeight-innerHeight);b.classList.toggle('show',scrollY>500);fg.style.strokeDashoffset=C*(1-p)}
-    addEventListener('scroll',on,{passive:true});on();b.addEventListener('click',()=>smoothTo(0))})();
+    function on(){const d=document.documentElement,p=scrollY/Math.max(1,d.scrollHeight-innerHeight);b.classList.toggle('show',scrollY>500);const fb=document.querySelector('.fbottom');if(fb){const t=fb.getBoundingClientRect().top;b.style.setProperty('--lift',Math.max(0,innerHeight-t+10)+'px')}fg.style.strokeDashoffset=C*(1-p)}
+    addEventListener('scroll',on,{passive:true});addEventListener('resize',on);on();b.addEventListener('click',()=>smoothTo(0))})();
   const rev=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
   $$('[data-reveal]').forEach(el=>rev.observe(el));
   const cnt=new IntersectionObserver((es,o)=>es.forEach(e=>{if(!e.isIntersecting)return;o.unobserve(e.target);
