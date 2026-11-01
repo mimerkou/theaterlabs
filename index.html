@@ -1113,7 +1113,7 @@ footer .about{max-width:300px;font-size:14.5px}
   function markNext(){tl.forEach((s,k)=>s.classList.toggle('next',!manual&&k===(cur+1)%4))}
   function ready(){if(!inSec)return false;const r=stepsEl.getBoundingClientRect(),p=panelEl.getBoundingClientRect(),top=hdr?hdr.getBoundingClientRect().bottom:0;return r.top>=top&&r.bottom<=innerHeight&&p.top<innerHeight*.85}
   function tick(t){const dt=last?Math.min(t-last,100):0;last=t;if(!manual&&ready()){elapsed+=dt;if(elapsed>=DUR){elapsed=0;setStep((cur+1)%4);markNext()}timer.style.transform=`scaleX(${elapsed/DUR})`}requestAnimationFrame(tick)}
-  tl.forEach(s=>s.addEventListener('click',()=>{manual=true;timer.style.transform='scaleX(0)';setStep(+s.dataset.i);markNext();hint.classList.add('gone')}));
+  tl.forEach(s=>s.addEventListener('click',()=>{manual=true;timer.style.transform='scaleX(0)';setStep(+s.dataset.i);markNext()}));
   setStep(0);markNext();requestAnimationFrame(tick);
   new IntersectionObserver(es=>es.forEach(e=>{inSec=e.isIntersecting;if(!inSec&&!manual){elapsed=0;timer.style.transform='scaleX(0)';if(cur!==0){setStep(0);markNext()}}}),{threshold:0}).observe($('#xronia'));
 
